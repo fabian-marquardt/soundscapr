@@ -80,6 +80,7 @@ export class SceneEditorComponent implements OnInit {
     }
     
     onSoundClipPicked(soundClip: SoundClip) {
+        this.resonanceService.resume();
         let source = new AudioSource(0, 0);
         source.soundClip = soundClip;
         this.soundscape.addSource(source);
@@ -121,6 +122,7 @@ export class SceneEditorComponent implements OnInit {
     }
     
     startAllSources() {
+        this.resonanceService.resume();
         this.soundscape.audioSources.forEach((value: AudioSource) => {
             value.start();
         });

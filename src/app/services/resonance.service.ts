@@ -26,6 +26,10 @@ export class ResonanceService {
     this.gain.connect(this.context.destination);
     this.audioSources = new Map<string, ResonanceAudioSource>();
   }
+
+  public resume() {
+    this.context.resume();
+  }
   
   public setSoundscape(soundscape: Soundscape){
     this.soundscape = soundscape;
