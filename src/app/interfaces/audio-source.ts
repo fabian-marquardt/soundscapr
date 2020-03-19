@@ -21,6 +21,7 @@ export class AudioSource {
         this.y = y;
         this._soundClip = soundClip;
         this.audio = new Audio();
+        this.audio.preload = 'auto';
         this.duration = 0;
         this.loadingDone = new EventEmitter<void>();
         this.isLoading = true;
