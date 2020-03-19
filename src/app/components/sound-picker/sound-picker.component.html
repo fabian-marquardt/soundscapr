@@ -13,7 +13,7 @@
                     <select class="custom-select" name="soundClip" [(ngModel)]="soundClip">
                         <option *ngFor="let item of getSoundClips()" [ngValue]="item">{{ item.title }}</option>
                     </select>
-                    <button type="submit" class="btn btn-info btn-block mt-2" (click)="pick()">Add Sound</button>
+                    <button type="submit" class="btn btn-info btn-block mt-2" (click)="pick()" data-dismiss="modal">Add Sound</button>
                 </div>
             </form>
         </div>
