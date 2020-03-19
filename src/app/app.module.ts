@@ -1,18 +1,44 @@
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { ResonanceService, SoundRegistryService, SoundscapeStorageService } from './services';
+import { SceneEditorComponent, SoundPickerComponent, RoomSettingsComponent, WallMaterialSelectorComponent, EditableLabelComponent, SoundscapeLoadModalComponent, SoundscapeSaveModalComponent } from './components';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SceneEditorComponent,
+    SoundPickerComponent,
+    RoomSettingsComponent,
+    WallMaterialSelectorComponent,
+    EditableLabelComponent,
+    SoundscapeLoadModalComponent,
+    SoundscapeSaveModalComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: SceneEditorComponent
+      }
+    ]),
+    LeafletModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ResonanceService,
+    SoundRegistryService,
+    SoundscapeStorageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

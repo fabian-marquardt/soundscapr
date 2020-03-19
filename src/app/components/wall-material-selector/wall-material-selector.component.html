@@ -1,0 +1,4 @@
+<label>{{ wallName }}</label>
+<select class="custom-select" name="{{ wallName }}" [(ngModel)]="wallMaterial" (change)="onChange()">
+    <option *ngFor="let item of getSurfaceMaterials()" [ngValue]="item">{{ item.name }}</option>
+</select>

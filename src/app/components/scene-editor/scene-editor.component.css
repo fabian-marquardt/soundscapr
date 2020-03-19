@@ -1,0 +1,15 @@
+.editor-row {
+    height: 500px;
+}
+
+.dropdown {
+  display: inline;
+}
+
+.loading-indicator {
+  font-size: 150% !important;
+}
+
+#map {
+  background-color: #606060;
+}

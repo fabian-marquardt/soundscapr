@@ -1,0 +1,28 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Room Settings</h5>
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="px-4 py-3">
+                <div class="form-group">
+                    <label>Room Width</label>
+                    <input type="number" class="form-control" name="width" [(ngModel)]="room.width" (keyup)="onChange()">
+                    <label>Room Depth</label>
+                    <input type="number" class="form-control" name="depth" [(ngModel)]="room.depth" (keyup)="onChange()">
+                    <label>Room Height</label>
+                    <input type="number" class="form-control" name="height" [(ngModel)]="room.height" (keyup)="onChange()">
+                    <wall-material-selector wallName="Left" [(wallMaterial)]="room.left" (change)="onChange()"></wall-material-selector>
+                    <wall-material-selector wallName="Right" [(wallMaterial)]="room.right" (change)="onChange()"></wall-material-selector>
+                    <wall-material-selector wallName="Front" [(wallMaterial)]="room.front" (change)="onChange()"></wall-material-selector>
+                    <wall-material-selector wallName="Back" [(wallMaterial)]="room.back" (change)="onChange()"></wall-material-selector>
+                    <wall-material-selector wallName="Up" [(wallMaterial)]="room.up" (change)="onChange()"></wall-material-selector>
+                    <wall-material-selector wallName="Down" [(wallMaterial)]="room.down" (change)="onChange()"></wall-material-selector>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

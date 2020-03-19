@@ -1,0 +1,21 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add sound</h5>
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="px-4 py-3">
+                <div class="form-group">
+                    <label>Sound file</label>
+                    <select class="custom-select" name="soundClip" [(ngModel)]="soundClip">
+                        <option *ngFor="let item of getSoundClips()" [ngValue]="item">{{ item.title }}</option>
+                    </select>
+                    <button type="submit" class="btn btn-info btn-block mt-2" (click)="pick()">Add Sound</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

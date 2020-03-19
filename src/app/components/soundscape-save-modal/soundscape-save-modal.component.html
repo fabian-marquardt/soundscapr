@@ -1,0 +1,22 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Save Soundscape</h5>
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="px-4 py-3">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" type="text" name="soundscapeName" [(ngModel)]="soundscapeName">
+                    <small class="form-text text-muted">
+                        Saving will overwrite any previously existing Soundscape with the same name.
+                    </small>
+                    <button type="submit" class="btn btn-info btn-block mt-2" (click)="save()" data-dismiss="modal">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

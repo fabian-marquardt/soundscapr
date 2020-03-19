@@ -1,0 +1,101 @@
+<div class="row mt-2">
+    <div class="col">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle px-5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <strong>Soundscapr</strong>
+            </button>
+            <div class="dropdown-menu bg-light w-100" aria-labelledby="dropdownMenuButton">
+                <button class="dropdown-item" type="button" (click)="onNewSoundscape()"><i class="fas fa-file fa-fw mr-2"></i> New</button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#soundscapeLoadModal"><i class="fas fa-folder-open fa-fw mr-2"></i> Load</button>
+                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#soundscapeSaveModal"><i class="fas fa-save fa-fw mr-2"></i> Save</button>
+            </div>
+        </div>
+        <div class="btn-group ml-2">
+            <button class="btn btn-success px-3" type="button" (click)="startAllSources()"><i class="fas fa-play"></i> Play</button>
+            <button class="btn btn-success px-3" type="button" (click)="stopAllSources()"><i class="fas fa-stop"></i> Stop</button>
+        </div>
+        <span class="badge badge-info loading-indicator ml-2" *ngIf="soundscape.loadingSources > 0">
+            <i class="fas fa-sync fa-spin ml-2 mr-2"></i>
+            loading {{ soundscape.loadingSources }} sounds
+        </span>
+    </div>
+</div>
+
+<div class="row mt-2 editor-row">
+    <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5><editable-label [(value)]="soundscape.name"></editable-label></h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <label>Global Volume</label>
+                    <div class="form-row">
+                        <div class="col-10">
+                            <input type="range" class="custom-range" name="volume" min="0" max="3" step="0.1" [(ngModel)]="getGain().value">
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-sm" type="text" name="volume-label" readonly [ngModel]="getGain().value | number:'1.1-1'">
+                        </div>
+                    </div>
+                    <label class="mt-2">Room settings</label>
+                    <button class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#roomSettingsModal"><i class="fas fa-map"></i> Adjust room</button>
+                    <label class="mt-2">Sound settings</label>
+                    <div class="form-row">
+                        <div class="col">
+                            <button class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#soundPickerModal"><i class="fas fa-plus"></i> Add Sound</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger btn-block" type="button" (click)="deleteAllSources()"><i class="fas fa-trash"></i> Delete all</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-8 col-xl-9">
+        <div class="card h-100">
+            <div id="map" leaflet [leafletOptions]="options" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)" class="card-body h-100"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    <div *ngFor="let item of soundscape.audioSources | keyvalue" class="col mt-2">
+        <div class="card h-100">
+            <div class="card-header text-white" [style.background-color]="item.value.color">
+                <editable-label [(value)]="item.value.title"></editable-label>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                      <label>Volume</label>
+                      <input type="range" class="custom-range" name="volume" min="0" max="1" step="0.05" [(ngModel)]="item.value.audio.volume">
+                      <label>Initial Playback Offset</label>
+                      <input type="range" class="custom-range" name="offset" min="0" max="1" step="0.01" [(ngModel)]="item.value.offset">
+                      <label>Color</label>
+                      <input class="form-control" type="color" name="color" (change)="updateColor(item.value)" [(ngModel)]="item.value.color">
+                      <button class="btn btn-danger mt-2" (click)="deleteSource(item.value)">Delete</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+    </div>
+</div>
+
+<div class="modal fade" id="soundPickerModal" tabindex="-1" role="dialog">
+    <sound-picker (soundClipPicked)="onSoundClipPicked($event)"></sound-picker>
+</div>
+
+<div class="modal fade" id="roomSettingsModal" tabindex="-1" role="dialog">
+    <room-settings [room]="soundscape.room" (roomChanged)="onRoomChanged()"></room-settings>
+</div>
+
+<div class="modal fade" id="soundscapeLoadModal" tabindex="-1" role="dialog">
+    <soundscape-load-modal (soundscapeLoadEvent)="onLoadSoundscape($event)"></soundscape-load-modal>
+</div>
+
+<div class="modal fade" id="soundscapeSaveModal" tabindex="-1" role="dialog">
+    <soundscape-save-modal [soundscapeName]="soundscape.name" (soundscapeSaveEvent)="onSaveSoundscape($event)"></soundscape-save-modal>
+</div>

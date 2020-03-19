@@ -1,0 +1,10 @@
+<div *ngIf="editing; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <form class="form-inline">
+        <input class="form-control form-control-sm" type="text" name="value" [(ngModel)]="value" (blur)="stopEdit()" (keydown.enter)="stopEdit()">
+        <button type="button" class="btn btn-secondary btn-sm ml-1" (click)="stopEdit()"><i class="fas fa-check"></i></button>
+    </form>
+</ng-template>
+<ng-template #elseBlock>
+    {{ value }} <button type="button" class="btn btn-secondary btn-sm ml-1" (click)="startEdit()"><i class="fas fa-pen"></i></button>
+</ng-template>
